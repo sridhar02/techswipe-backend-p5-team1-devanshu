@@ -83,7 +83,7 @@ const userSchema = new Schema({
     },
     block: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
   techStack: {

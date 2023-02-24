@@ -7,6 +7,7 @@ const { check } = require("express-validator");
 
 router.post(
   "/addUserInfo",
+  isAuth,
   [
     check("name").trim().notEmpty().withMessage("Name is required"),
     check("birthday")
@@ -40,5 +41,7 @@ router.post(
   ],
   userController.addUserInfo
 );
+
+router.get("/profileStatus", isAuth, userController.profileStatus);
 
 module.exports = router;
