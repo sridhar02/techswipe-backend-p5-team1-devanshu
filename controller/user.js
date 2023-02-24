@@ -1,5 +1,17 @@
-const userSchema = require("../models/user");
+const User = require("../models/user");
 const { validationResult } = require("express-validator");
+
+exports.profileStatus = (req, res) => {
+  const userId = req.userId;
+  User.findById(req.userId).then((user) => {
+    if (!user) {
+      const error = new Error("User not found.");
+      error.statusCode = 404;
+      throw error;
+    }
+    res.status(200).json({ profileStatus: user.privacy.profileComplete });
+  });
+};
 
 exports.addUserInfo = (req, res) => {
   const errors = validationResult(req);
@@ -10,7 +22,6 @@ exports.addUserInfo = (req, res) => {
     console.log(errors);
     throw error;
   }
-
   const {
     name,
     email,
@@ -29,7 +40,7 @@ exports.addUserInfo = (req, res) => {
     type: "Point",
     coordinates: coordinates,
   };
-  const newUser = new userSchema({
+  const newUser = new User({
     name: name,
     email: email,
     phoneNumber: phoneNumber,
