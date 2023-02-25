@@ -1,10 +1,10 @@
 const router = require("express").Router();
 const passport = require("passport");
-const { promisify }  = require('node:util');
+// const { promisify }  = require('node:util');
 
 const authController = require("../controller/auth");
 
-const { BASE_URL, BASE_URL_FRONTEND } = process.env
+const { BASE_URL_FRONTEND } = process.env
 
 router.get(
   "/github",
@@ -39,12 +39,19 @@ router.get("/logout", async function (req, res) {
     console.log(req.session.req);
     console.log(req.session.id);
 
-    await promisify(req.session.destroy)()
+    await new Promise((resolve, reject) => {
+      req.session.destroy((err) => {
+        if (err) {
+          reject(err);
+        }
+        resolve();
+      });
+    });
 
-    res.json({ loggedOut: true });  
+    res.redirect(`${BASE_URL_FRONTEND}/login`);
   } catch (err) {
     console.log(err)
-    res.status(500).end();
+    res.redirect(`${BASE_URL_FRONTEND}/dashboard?logout=false`);
   }
 });
 

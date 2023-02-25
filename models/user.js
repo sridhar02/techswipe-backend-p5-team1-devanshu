@@ -29,6 +29,9 @@ const userSchema = new Schema({
   email: {
     type: String,
   },
+  username: {
+    type: String,
+  },
   age: {
     type: Number,
   },
@@ -100,14 +103,13 @@ const User = mongoose.model("User", userSchema);
 module.exports = User;
 
 module.exports.findOrCreate = async (userData) => {
-  const email = userData.emails[0].value;
+  const username = userData.username;
 
-  const [user] = await User.find({ email });
-  console.log({user});
+  const [user] = await User.find({ email: username });
+  console.log({ user });
   if (user) {
     return { created: false, user };
   }
-
 
   const {
     name,
@@ -115,14 +117,15 @@ module.exports.findOrCreate = async (userData) => {
     html_url,
     avatar_url,
     id: githubId,
+    email,
   } = userData._json;
-
   let newUser = new User({
     name,
     company,
     githubId,
+    username,
     email,
-    photos: [ avatar_url ],
+    photos: [avatar_url],
     socialMedia: {
       github: html_url,
     },
