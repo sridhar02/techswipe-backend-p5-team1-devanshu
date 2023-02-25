@@ -1,9 +1,9 @@
-require("dotenv").config();
 const passport = require("passport");
 const GitHubStrategy = require("passport-github2").Strategy;
-const { BASE_URL } = require("../keys");
-const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
-const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
+
+const { BASE_URL,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET } = process.env;
+
+
 passport.use(
   new GitHubStrategy(
     {

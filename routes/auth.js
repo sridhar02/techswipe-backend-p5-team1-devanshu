@@ -1,7 +1,10 @@
 const router = require("express").Router();
-const authController = require("../controller/auth");
 const passport = require("passport");
-const { BASE_URL, BASE_URL_FRONTEND } = require("../keys");
+const { promisify }  = require('node:util');
+
+const authController = require("../controller/auth");
+
+const { BASE_URL, BASE_URL_FRONTEND } = process.env
 
 router.get(
   "/github",
@@ -31,8 +34,18 @@ router.get(
   authController.successLinkedinLogin
 );
 
-router.get("/logout", (req, res) => {
-  res.status(200).redirect(`${BASE_URL_FRONTEND}/login`);
+router.get("/logout", async function (req, res) {
+  try {
+    console.log(req.session.req);
+    console.log(req.session.id);
+
+    await promisify(req.session.destroy)()
+
+    res.json({ loggedOut: true });  
+  } catch (err) {
+    console.log(err)
+    res.status(500).end();
+  }
 });
 
 module.exports = router;

@@ -1,11 +1,13 @@
 require("dotenv").config();
 const passport = require("passport");
-const GitHubStrategy = require("passport-linkedin-oauth2").Strategy;
-const { BASE_URL } = require("../keys");
-const LINKEDIN_CLIENT_ID = process.env.LINKEDIN_CLIENT_ID;
-const LINKEDIN_CLIENT_SECRET = process.env.LINKEDIN_CLIENT_SECRET;
+const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
+const { BASE_URL 
+  ,LINKEDIN_CLIENT_ID 
+  ,LINKEDIN_CLIENT_SECRET 
+} = process.env
+
 passport.use(
-  new GitHubStrategy(
+  new LinkedInStrategy(
     {
       clientID: LINKEDIN_CLIENT_ID,
       clientSecret: LINKEDIN_CLIENT_SECRET,
