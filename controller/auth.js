@@ -24,9 +24,9 @@ exports.successGithubLogin = (req, res, next) => {
                     userId: loadedUser._id.toString(),
                   },
                   JWT_KEY,
-                  { expiresIn: "1h" }
+                  { expiresIn: "1w" }
                 );
-                res.redirect(`${BASE_URL_FRONTEND}/login?token=${token}`);
+                res.redirect(`${BASE_URL_FRONTEND}/dashboard?token=${token}`);
               });
             } else {
               const data = {};
@@ -53,9 +53,9 @@ exports.successGithubLogin = (req, res, next) => {
                     userId: loadedUser._id.toString(),
                   },
                   JWT_KEY,
-                  { expiresIn: "1h" }
+                  { expiresIn: "1w" }
                 );
-                res.redirect(`${BASE_URL_FRONTEND}/login?token=${token}`);
+                res.redirect(`${BASE_URL_FRONTEND}/profile?token=${token}`);
               });
             }
           });
@@ -95,9 +95,9 @@ exports.successGithubLogin = (req, res, next) => {
             userId: id_user[0]._id.toString(),
           },
           JWT_KEY,
-          { expiresIn: "1h" }
+          { expiresIn: "1w" }
         );
-        res.redirect(`${BASE_URL_FRONTEND}/login?token=${token}`);
+        res.redirect(`${BASE_URL_FRONTEND}/dashboard?token=${token}`);
       }
     });
   } else {
@@ -135,9 +135,9 @@ exports.successLinkedinLogin = (req, res, next) => {
                       userId: loadedUser._id.toString(),
                     },
                     JWT_KEY,
-                    { expiresIn: "1h" }
+                    { expiresIn: "1w" }
                   );
-                  res.redirect(`${BASE_URL_FRONTEND}/login?token=${token}`);
+                  res.redirect(`${BASE_URL_FRONTEND}/dashboard?token=${token}`);
                 });
               } else {
                 const data = {};
@@ -160,9 +160,9 @@ exports.successLinkedinLogin = (req, res, next) => {
                       userId: loadedUser._id.toString(),
                     },
                     JWT_KEY,
-                    { expiresIn: "1h" }
+                    { expiresIn: "1w" }
                   );
-                  res.redirect(`${BASE_URL_FRONTEND}/login?token=${token}`);
+                  res.redirect(`${BASE_URL_FRONTEND}/profile?token=${token}`);
                 });
               }
             })
@@ -189,7 +189,7 @@ exports.successLinkedinLogin = (req, res, next) => {
                 userId: loadedUser._id.toString(),
               },
               JWT_KEY,
-              { expiresIn: "1h" }
+              { expiresIn: "1w" }
             );
             res.redirect(`${BASE_URL_FRONTEND}/login?token=${token}`);
           });
@@ -202,9 +202,9 @@ exports.successLinkedinLogin = (req, res, next) => {
             userId: id_user[0]._id.toString(),
           },
           JWT_KEY,
-          { expiresIn: "1h" }
+          { expiresIn: "1w" }
         );
-        res.redirect(`${BASE_URL_FRONTEND}/login?token=${token}`);
+        res.redirect(`${BASE_URL_FRONTEND}/profile?token=${token}`);
       }
     });
   } else {

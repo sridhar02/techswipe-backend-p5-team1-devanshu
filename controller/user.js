@@ -1,16 +1,15 @@
 const User = require("../models/user");
 const { validationResult, Result } = require("express-validator");
 
-exports.profileStatus = (req, res) => {
+exports.getUserInfo = async (req, res) => {
   const userId = req.userId;
-  User.findById(req.userId).then((user) => {
-    if (!user) {
-      const error = new Error("User not found.");
-      error.statusCode = 404;
-      throw error;
-    }
-    res.status(200).json({ profileStatus: user.privacy });
-  });
+  const user = await User.findById(userId);
+  if (!user) {
+    const error = new Error("User not found.");
+    error.statusCode = 404;
+    throw error;
+  }
+  res.status(200).json({ user });
 };
 
 exports.addUserInfo = async (req, res, next) => {
